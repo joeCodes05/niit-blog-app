@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { IoArrowBackOutline, IoTrashBinOutline } from 'react-icons/io5'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { BsThreeDotsVertical, BsPen, BsHandThumbsUp, BsChat, BsShare } from 'react-icons/bs'
+import { BsThreeDotsVertical, BsPen, BsChat, BsShare } from 'react-icons/bs'
+import { IoHeartOutline } from 'react-icons/io5'
 import axios from 'axios';
 import { useContext } from 'react'
 import { AuthContext } from '../context/authContext'
@@ -113,15 +114,18 @@ const PostSingle = () => {
           </div>
 
           <div className="my-10">
-            <div className="w-full p-4 rounded-[16px] ring-1 ring-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
-              <button className='bg-transparent outline-none border-0 p-0'>
-                <BsHandThumbsUp />
+            <div className="w-full px-4 py-2 rounded-[16px] ring-1 ring-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
+              <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
+                <IoHeartOutline />
+                <div className='w-fit text-gray-400 text-[.7rem]'>Likes</div>
               </button>
-              <button className='bg-transparent outline-none border-0 p-0'>
+              <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
                 <BsChat />
+                <div className='w-fit text-gray-400 text-[.7rem]'>Comments</div>
               </button>
-              <button className='bg-transparent outline-none border-0 p-0'>
+              <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
                 <BsShare />
+                <div className='w-fit text-gray-400 text-[.7rem]'>Share</div>
               </button>
             </div>
           </div>
