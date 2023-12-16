@@ -1,14 +1,47 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { IoLogOutOutline, IoPersonOutline  } from "react-icons/io5";
+import { IoLogOutOutline, IoPersonOutline } from "react-icons/io5";
 import { DropdownContext } from '../context/dropdownContext';
 import { AuthContext } from '../context/authContext';
 import { GrUserSettings } from "react-icons/gr";
+import Swal from 'sweetalert2'
 
 const AccountMenu = () => {
   const { setDropdownOpen } = useContext(DropdownContext);
   const { logout } = useContext(AuthContext);
   const navigator = useNavigate();
+
+  const showPrompt = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to log out from this account?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#CE3DF3",
+      cancelButtonColor: "#1C1F26",
+      confirmButtonText: "Log out!",
+      background: "#0E1217",
+      color: "#fff"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let timerInterval;
+        Swal.fire({
+          title: "You're logged out successfully!",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          background: "#0E1217",
+          showConfirmButton: false,
+          color: "#fff",
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        })
+        logout();
+        navigator('/login');
+      }
+    });
+  }
 
   return (
     <>
@@ -16,7 +49,7 @@ const AccountMenu = () => {
         <button onClick={() => {
           setDropdownOpen(false)
         }} className='outline-none w-full p-1.5 rounded-md bg-transparent text-white ring-1 ring-transparent duration-500 flex gap-2 items-center hover:bg-secondary text-[14px] hover:ring-gray-700'>
-          <IoPersonOutline  />
+          <IoPersonOutline />
           <div>Profile</div>
         </button>
 
@@ -29,8 +62,7 @@ const AccountMenu = () => {
 
         <button onClick={() => {
           setDropdownOpen(false);
-          logout();
-          navigator('/login')
+          showPrompt();
         }} className='outline-none w-full p-1.5 rounded-md bg-transparent text-white ring-1 ring-transparent duration-500 flex gap-2 items-center hover:bg-secondary text-[14px] hover:ring-gray-700'>
           <IoLogOutOutline />
           <div>Log Out</div>
