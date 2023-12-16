@@ -13,6 +13,7 @@ const CreatePost = () => {
   const [category, setCategory] = useState(state?.category || '');
   const [file, setFile] = useState(null);
   const [currentWordsTyped, setCurrentWordsTyped] = useState();
+  const [disabled, setDisabled] = useState(true);
 
   const inputRef = useRef(null);
 
@@ -56,11 +57,17 @@ const CreatePost = () => {
     const newText = e.target.value;
     const wordCount = newText.trim().split(/\s+/).length;
     setCurrentWordsTyped(wordCount)
+
+    if (wordCount >= 50) {
+      setDisabled(false);
+    } else {
+      setDisabled(true)
+    }
   }
 
   return (
     <>
-      <section className='my-24 text-white max-w-xl mx-auto lg:px-0 px-5'>
+      <section className='mt-24 mb-10 text-white max-w-xl mx-auto lg:px-0 px-5'>
         <div>
           <button onClick={() => navigator('/')} className='py-1.5 px-3 font-normal rounded-md bg-secondary ring-1 ring-gray-700 text-gray-400 duration-500 text-base flex gap-1 items-center outline-none'>
             <IoArrowBackOutline />
@@ -88,26 +95,27 @@ const CreatePost = () => {
                   <label htmlFor="imageUpload" className='w-[200px] h-[100px] overflow-hidden p-2 cursor-pointer rounded-xl ring-1 ring-gray-700 flex items-center justify-center bg-secondary'>
                     {file ? <img src={URL.createObjectURL(file)} width={'100%'} alt={file} /> : <div className="flex gap-2 items-center">
                       <IoCamera />
-                      <h3 className='text-white font-semibold'>Thumbnail</h3>
+                      <h3 className='text-white font-semibold text-sm'>Thumbnail</h3>
                     </div>}
                   </label>
                 </div>
               </div>
               <div>
-                <input type={'text'} className='p-2 outline-none rounded-md bg-secondary ring-1 w-full box-border ring-gray-700 text-white' placeholder={'Post title'} value={title} onChange={(e) => setTitle(e.target.value)} required />
+                <input type={'text'} className='p-2 text-sm outline-none rounded-md bg-secondary ring-1 w-full box-border ring-gray-700 text-white' placeholder={'Post title'} value={title} onChange={(e) => setTitle(e.target.value)} required />
               </div>
 
               <div>
                 <textarea value={content} onChange={(e) => {
                   setContent(e.target.value);
                   countWordsTyped(e)
-                }} name="postContent" id="postContent" cols="30" rows="7" placeholder='Share your thoughts' required className='p-2 rounded-md bg-secondary ring-1 ring-gray-700 w-full outline-none'></textarea>
+                }} name="postContent" id="postContent" cols="30" rows="7" placeholder='Share your thoughts' required className='p-2 rounded-md text-sm bg-secondary ring-1 ring-gray-700 w-full outline-none'></textarea>
                 {content.length >= 1 ? <small className='text-gray-400'>{currentWordsTyped} / 50 words typed.</small> : <small className='text-gray-400'>Number of words typed here must be more than 50</small>}
               </div>
 
               <div>
                 <WhiteButton
                   onClick={handleCreatePost}
+                  disabled={disabled}
                   text={'Create post'}
                 />
               </div>
