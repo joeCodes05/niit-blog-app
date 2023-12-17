@@ -21,7 +21,7 @@ const App = () => {
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/post/:id" element={<PostSingle />} />
             <Route exact path="/post/create" element={<CreatePost />} />
-            <Route exact path="/account/:id" element={<Profile />} />
+            <Route exact path="/profile/:id" element={<Profile />} />
           </Routes>
         </Router>
       </main>

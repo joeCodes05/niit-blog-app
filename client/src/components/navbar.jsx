@@ -30,7 +30,7 @@ export default function Navbar() {
               <div className="p-2 text-gray-400">
                 <IoSearch />
               </div>
-              <input type="text" className='h-full box-border lg:w-[400px] md:w-[300px] p-2 pl-0 outline-none bg-transparent border-none text-gray-400 text-sm' placeholder='Search for anybody...' />
+              <input type="text" className='h-full box-border lg:w-[400px] md:w-[300px] p-2 pl-0 outline-none bg-transparent border-none text-gray-400 text-sm' placeholder='Search for any post...' />
             </form>
           </div>
 
