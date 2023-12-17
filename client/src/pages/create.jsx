@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IoArrowBackOutline, IoCamera, IoCloseOutline } from "react-icons/io5";
 import { useLocation, useNavigate } from 'react-router-dom';
 import CategoryDropButton from '../utils/categorySelect';
@@ -12,7 +12,7 @@ const CreatePost = () => {
   const [content, setContent] = useState(state?.content || '');
   const [category, setCategory] = useState(state?.category || '');
   const [file, setFile] = useState(null);
-  const [currentWordsTyped, setCurrentWordsTyped] = useState();
+  const [currentWordsTyped, setCurrentWordsTyped] = useState(0);
   const [disabled, setDisabled] = useState(true);
 
   const inputRef = useRef(null);
@@ -65,6 +65,21 @@ const CreatePost = () => {
     }
   }
 
+  const countWords = (text) => {
+    const words = text.trim().split(/\s+/);
+    setCurrentWordsTyped(words.filter((word) => word !== '').length)
+    if (words.filter((word) => word !== '').length >= 50) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }
+
+  useEffect(() => {
+    const count = () => countWords(content);
+    count();
+  }, [content])
+
   return (
     <>
       <section className='mt-24 mb-10 text-white max-w-xl mx-auto lg:px-0 px-5'>
@@ -87,7 +102,7 @@ const CreatePost = () => {
 
             <div className="mt-5 space-y-4">
               <div>
-                <input type="file" className='hidden' id='imageUpload' ref={inputRef} onChange={(e) => setFile(e.target.files[0])} accept='image/*' />
+                <input type="file" className='hidden' id='imageUpload' ref={inputRef} onChange={(e) => setFile(e.target.files[0])} accept='image/*' required/>
                 <div className="relative w-fit">
                   {file ? <div onClick={() => setFile(null)} className="absolute cursor-pointer -top-[10px] -right-[10px] h-[30px] w-[30px] text-dark bg-white rounded-full flex items-center justify-center">
                     <IoCloseOutline />
