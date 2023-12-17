@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
-import { BsCamera, BsEye } from 'react-icons/bs'
+import { BsCamera } from 'react-icons/bs'
 import Button from '../utils/buttons'
 
 const Profile = () => {
