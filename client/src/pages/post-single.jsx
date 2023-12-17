@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { IoArrowBackOutline, IoTrashBinOutline } from 'react-icons/io5'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { BsThreeDotsVertical, BsPen, BsChat, BsShare } from 'react-icons/bs'
+import { BsThreeDotsVertical, BsPen, BsChatDots } from 'react-icons/bs'
 import { IoHeartOutline } from 'react-icons/io5'
 import axios from 'axios';
 import { useContext } from 'react'
+import { IoIosShareAlt } from "react-icons/io";
 import { AuthContext } from '../context/authContext'
 import moment from 'moment'
 
@@ -25,8 +26,15 @@ const PostSingle = () => {
       }
     }
 
+    const redirect = () => {
+      if (!currentUser) {
+        navigator('/login')
+      }
+    }
+
+    redirect();
     fetchData();
-  }, [postId])
+  }, [postId, currentUser, navigator])
 
   const handleDelete = async () => {
     try {
@@ -77,7 +85,7 @@ const PostSingle = () => {
               </button>
 
               <div className='relative'>
-                {currentUser.userData.email === post?.email ? <button onClick={() => setDropdownStat(!dropdownState)} className='bg-transparent border-0 outline-none p-0 text-xl text-gray-400'>
+                {currentUser?.userData.email === post?.email ? <button onClick={() => setDropdownStat(!dropdownState)} className='bg-transparent border-0 outline-none p-0 text-xl text-gray-400'>
                   <BsThreeDotsVertical />
                 </button> : null}
 
@@ -113,18 +121,18 @@ const PostSingle = () => {
             {post?.cover_image === null ? null : <img src={`../upload/${post?.cover_image}`} width={'100%'} className='rounded-xl' alt={post?.title} />}
           </div>
 
-          <div className="my-10">
-            <div className="w-full px-4 py-2 rounded-[16px] ring-1 ring-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
+          <div className="my-5">
+            <div className="w-full px-4 py-2 border-t border-t-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
               <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
                 <IoHeartOutline />
                 <div className='w-fit text-gray-400 text-[.7rem]'>Likes</div>
               </button>
               <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
-                <BsChat />
+                <BsChatDots />
                 <div className='w-fit text-gray-400 text-[.7rem]'>Comments</div>
               </button>
               <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
-                <BsShare />
+                <IoIosShareAlt />
                 <div className='w-fit text-gray-400 text-[.7rem]'>Share</div>
               </button>
             </div>

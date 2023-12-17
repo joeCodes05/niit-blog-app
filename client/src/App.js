@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 import CreatePost from "./pages/create";
 import PostSingle from "./pages/post-single"
+import Profile from "./pages/profile";
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/post/:id" element={<PostSingle />} />
             <Route exact path="/post/create" element={<CreatePost />} />
+            <Route exact path="/account/:id" element={<Profile />} />
           </Routes>
         </Router>
       </main>

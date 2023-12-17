@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CategoryModal from '../utils/categoryFilterModal'
 import PostCard from '../components/postCard'
 import moment from 'moment'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { AuthContext } from '../context/authContext'
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const category = useLocation().search;
+  const { currentUser } = useContext(AuthContext);
+  const navigator = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -18,8 +21,16 @@ const Home = () => {
         console.log(err);
       } 
     }
+
+    const redirect = () => {
+      if (!currentUser) {
+        navigator('/login')
+      }
+    }
+
+    redirect();
     fetchPosts();
-  }, [category]);
+  }, [category, currentUser, navigator]);
 
   return (
     <>

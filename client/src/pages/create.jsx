@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { IoArrowBackOutline, IoCamera, IoCloseOutline } from "react-icons/io5";
 import { useLocation, useNavigate } from 'react-router-dom';
 import CategoryDropButton from '../utils/categorySelect';
 import WhiteButton from '../utils/whiteButton';
 import axios from 'axios';
+import { AuthContext } from '../context/authContext';
 
 const CreatePost = () => {
   const state = useLocation().state
@@ -14,6 +15,7 @@ const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [currentWordsTyped, setCurrentWordsTyped] = useState(0);
   const [disabled, setDisabled] = useState(true);
+  const { currentUser } = useContext(AuthContext);
 
   const inputRef = useRef(null);
 
@@ -46,7 +48,8 @@ const CreatePost = () => {
           category,
           cover_image: file ? imageUrl : ''
         }, { withCredentials: true });
-        navigator('/');
+
+        navigator(`/`);
       } catch (err) {
         console.log(err);
       }
@@ -78,7 +81,15 @@ const CreatePost = () => {
   useEffect(() => {
     const count = () => countWords(content);
     count();
-  }, [content])
+
+    const redirect = () => {
+      if (!currentUser) {
+        navigator('/login')
+      }
+    }
+
+    redirect();
+  }, [content, currentUser, navigator])
 
   return (
     <>

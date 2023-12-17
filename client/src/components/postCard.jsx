@@ -26,8 +26,13 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
           </button>
 
           <div className="mt-3">
-            <h1 className='text-white font-bold text-lg truncate'>
-              {title}
+            <h1 className='text-white font-bold text-lg'>
+              <TextTruncate
+                line={2}
+                element="div"
+                truncateText="…"
+                text={title}
+              />
             </h1>
           </div>
 
