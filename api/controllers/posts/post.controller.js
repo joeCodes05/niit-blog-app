@@ -104,8 +104,34 @@ const deletePost = (req, res) => {
   })
 }
 
-const editPost = () => {
+const editPost = (req, res) => {
+  const token = req.cookies.user_token;
+  const { title, content, cover_image, category } = req.body;
+  const postId = req.params.id;
 
+  if (!token) {
+    return res.status(401).json({
+      error: true,
+      message: "Not authenticated!"
+    })
+  }
+
+  jwt.verify(token, process.env.MY_SECRET, (err, info) => {
+    db.query("UPDATE posts SET `title`=?, `content`=?, `cover_image`=?, `category`=? WHERE `post_id`=? AND `user_id`=?", [title, content, cover_image, category, postId, info.id], (err, data) => {
+      if (err) {
+        return res.status(500).json({
+          error: true,
+          message: "Something went wrong, please try again later!",
+          errorMessage: err
+        })
+      }
+
+      return res.status(200).json({
+        error: false,
+        message: "Post has been updated"
+      })
+    })
+  })
 }
 
 module.exports = {getPosts, getSinglePost, addPost, deletePost, editPost};
