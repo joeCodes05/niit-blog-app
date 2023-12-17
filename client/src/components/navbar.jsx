@@ -26,11 +26,11 @@ export default function Navbar() {
           </div>
 
           <div className="mx-auto">
-            <form action="#" className='flex items-center rounded-md ring-1 ring-gray-700 bg-secondary'>
+            <form action="#" className='md:flex hidden items-center rounded-md ring-1 ring-gray-700 bg-secondary'>
               <div className="p-2 text-gray-400">
                 <IoSearch />
               </div>
-              <input type="text" className='h-full box-border w-[400px] p-2 pl-0 outline-none bg-transparent border-none text-gray-400 text-sm' placeholder='Search for anybody...' />
+              <input type="text" className='h-full box-border lg:w-[400px] md:w-[300px] p-2 pl-0 outline-none bg-transparent border-none text-gray-400 text-sm' placeholder='Search for anybody...' />
             </form>
           </div>
 
