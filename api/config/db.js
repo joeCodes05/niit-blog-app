@@ -41,8 +41,11 @@ db.connect((error) => {
       comment_id INT(255) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
       content LONGTEXT NOT NULL,
       comment_image VARCHAR(255) NULL,
-      post_id 
-    )`)
+      post_id INT(255) UNSIGNED NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      FOREIGN KEY(post_id) REFERENCES posts(post_id)
+    ) CHARSET utf8mb4 COLLATE = utf8mb4_unicode_ci, ENGINE = InnoDB`);
 
     console.log(`Connected to MYSQL database`);
   }
