@@ -8,6 +8,7 @@ import { useContext } from 'react'
 import { IoIosShareAlt } from "react-icons/io";
 import { AuthContext } from '../context/authContext'
 import moment from 'moment'
+import Comment from '../components/comment'
 
 const PostSingle = () => {
   const navigator = useNavigate();
@@ -38,7 +39,7 @@ const PostSingle = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${postId}`, {withCredentials: true});
+      await axios.delete(`/posts/${postId}`, { withCredentials: true });
       navigator('/');
     } catch (err) {
       console.log(err)
@@ -76,7 +77,7 @@ const PostSingle = () => {
                 <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
                   {post?.profile_image === null ? <div className='bg-primary flex items-center justify-center h-full w-full text-dark'>
                     {firstName?.charAt(0)}{lastName?.charAt(0)}
-                  </div> : <img src={`../upload/${post?.profile_image}`} width={'100%'} alt={post?.email} />}
+                  </div> : <img src={`../upload/${post?.profile_image}`} width={'100%'} alt={post?.full_name} />}
                 </div>
                 <div>
                   <h3 className='text-white font-semibold text-base text-left'>{post?.full_name}</h3>
@@ -122,7 +123,7 @@ const PostSingle = () => {
           </div>
 
           <div className="my-5">
-            <div className="w-full px-4 py-2 border-t border-t-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
+            <div className="w-full px-4 py-2 border-y border-y-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
               <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
                 <IoHeartOutline />
                 <div className='w-fit text-gray-400 text-[.7rem]'>Likes</div>
@@ -137,6 +138,8 @@ const PostSingle = () => {
               </button>
             </div>
           </div>
+
+          <Comment />
         </div>
       </section>
     </>

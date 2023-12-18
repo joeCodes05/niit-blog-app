@@ -2,8 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/images/28aOt4-LogoMakr.png'
 import TextTruncate from 'react-text-truncate';
+import { IoHeartOutline } from "react-icons/io5";
+import { BsChatDots } from 'react-icons/bs'
+import { IoIosShareAlt } from "react-icons/io";
 
-const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, postTime, path, userId }) => {
+const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, postTime, path, userId, postId }) => {
   const fullName = userName;
   const tempArray = userName === undefined ? null : fullName.split(" ")
   const lastName = tempArray === null ? null : tempArray?.pop();
@@ -24,11 +27,11 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
           </div>
         </Link>
 
-        <Link to={path} className='no-underline outline-none'>
+        <Link to={path} className='no-underline outline-none group'>
           <div className="mt-3">
             <h1 className='text-white font-bold text-lg'>
               <TextTruncate
-                line={2}
+                line={1}
                 element="div"
                 truncateText="…"
                 text={title}
@@ -56,6 +59,22 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
             </div>
           </div>
         </Link>
+
+        <div className="mt-2">
+          <div className="flex items-center gap-20 justify-center">
+            <button className='outline-none no-underline'>
+              <IoHeartOutline />
+            </button>
+
+            <Link to={`/post/${postId}`} className='outline-none no-underline'>
+              <BsChatDots />
+            </Link>
+
+            <button className='outline-none no-underline'>
+              <IoIosShareAlt />
+            </button>
+          </div>
+        </div>
       </div>
     </>
   )

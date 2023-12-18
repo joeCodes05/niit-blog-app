@@ -16,7 +16,9 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(`/posts${category}`);
-        setPosts(response.data.data);
+        const reversedPost = [...response.data.data];
+        reversedPost.reverse()
+        setPosts(reversedPost);
       } catch (err) {
         console.log(err);
       } 
@@ -46,6 +48,7 @@ const Home = () => {
             return (
               <PostCard
                 key={index}
+                postId={post_id}
                 detail={content}
                 userName={full_name}
                 profileImage={profile_image === null ? null : `../upload/${profile_image}`}

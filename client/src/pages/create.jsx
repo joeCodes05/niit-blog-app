@@ -37,7 +37,7 @@ const CreatePost = () => {
       const imageUrl = await upload();
 
       try {
-        state ? await axios.put(`/posts/${state.post_id}`, {
+        const response = state ? await axios.put(`/posts/${state.post_id}`, {
           title,
           content,
           category,
@@ -49,7 +49,9 @@ const CreatePost = () => {
           cover_image: file ? imageUrl : ''
         }, { withCredentials: true });
 
-        navigator(`/`);
+        if (response.data.message === 'Your post has been uploaded') {
+          navigator(`/`);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -140,7 +142,7 @@ const CreatePost = () => {
 
               <div>
                 <WhiteButton
-                  onClick={handleCreatePost}
+                  onClick={disabled ? null : handleCreatePost}
                   disabled={disabled}
                   text={'Create post'}
                 />
