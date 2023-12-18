@@ -72,7 +72,7 @@ const PostSingle = () => {
 
           <div className="mt-5">
             <div className="flex items-center">
-              <button className="mt-2 flex gap-2 mr-auto items-center outline-none bg-transparent">
+              <Link to={`/profile/${post?.user_id}`} className="mt-2 no-underline flex gap-2 mr-auto items-center outline-none bg-transparent">
                 <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
                   {post?.profile_image === null ? <div className='bg-primary flex items-center justify-center h-full w-full text-dark'>
                     {firstName?.charAt(0)}{lastName?.charAt(0)}
@@ -82,7 +82,7 @@ const PostSingle = () => {
                   <h3 className='text-white font-semibold text-base text-left'>{post?.full_name}</h3>
                   <h5 className='text-gray-400 text-sm text-left italic'>{moment(post?.created_at).fromNow()}</h5>
                 </div>
-              </button>
+              </Link>
 
               <div className='relative'>
                 {currentUser?.userData.email === post?.email ? <button onClick={() => setDropdownStat(!dropdownState)} className='bg-transparent border-0 outline-none p-0 text-xl text-gray-400'>

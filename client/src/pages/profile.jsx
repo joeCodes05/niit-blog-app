@@ -48,18 +48,21 @@ const Profile = () => {
                 <div>
                   nathancodes05@gmail.com
                 </div>
-                <div>.</div>
-                <div>
-                  120 Posts written
-                </div>
               </div>
             </div>
 
-            <div className="mt-5 border border-gray-700 p-3 rounded-md">
-              <div className="text-gray-400 text-sm">
-                <h1 className='text-white text-lg font-semibold'>Biography:</h1>
-                <div className='mt-2'>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut quibusdam voluptates laborum placeat velit? Sint libero, cumque, laborum odio explicabo ipsam iste sapiente alias voluptas deleniti maxime, laudantium optio enim.
+            <div>
+              <div className="text-white text-base font-light">
+                <div className='mt-3'>
+                  Software Engineer (React) | Critical thinker | Fast learner | Good communicator | Team player.
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-3">
+              <div className="flex gap-3 items-center justfy-center">
+                <div>
+                  
                 </div>
               </div>
             </div>

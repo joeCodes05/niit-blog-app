@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Logo from '../assets/images/28aOt4-LogoMakr.png'
 import TextTruncate from 'react-text-truncate';
 
-const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, postTime, path, authourEmail }) => {
+const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, postTime, path, userId }) => {
   const fullName = userName;
   const tempArray = userName === undefined ? null : fullName.split(" ")
   const lastName = tempArray === null ? null : tempArray?.pop();
@@ -11,20 +11,20 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
 
   return (
     <>
-      <Link to={path} className='no-underline group outline-none'>
-        <div className='py-5 pb-3 px-3 rounded-2xl ring-1 ring-gray-700 bg-secondary text-white'>
-          <button className="flex gap-2 items-center bg-transparent outline-none">
-            <div className="h-[40px] w-[40px] overflow-hidden rounded-full">
-              {profileImage === null ? <div className='bg-primary flex items-center justify-center h-full w-full text-dark'>
-                {firstName.charAt(0)}{lastName.charAt(0)}
-              </div> : <img src={profileImage} width={'100%'} alt={userName} />}
-            </div>
-            <div>
-              <h3 className='text-white font-semibold text-base text-left'>{userName}</h3>
-              <h5 className='text-gray-400 text-[.7rem] text-left italic'>{postTime}</h5>
-            </div>
-          </button>
+      <div className='py-5 pb-3 px-3 rounded-2xl ring-1 ring-gray-700 bg-secondary text-white'>
+        <Link to={`/profile/${userId}`} className="flex w-fit gap-2 items-center bg-transparent outline-none">
+          <div className="h-[40px] w-[40px] overflow-hidden rounded-full">
+            {profileImage === null ? <div className='bg-primary flex items-center justify-center h-full w-full text-dark'>
+              {firstName.charAt(0)}{lastName.charAt(0)}
+            </div> : <img src={profileImage} width={'100%'} alt={userName} />}
+          </div>
+          <div className='w-fit'>
+            <h3 className='text-white font-semibold text-base text-left w-fit'>{userName}</h3>
+            <h5 className='text-gray-400 text-[.7rem] text-left italic w-fit'>{postTime}</h5>
+          </div>
+        </Link>
 
+        <Link to={path} className='no-underline outline-none'>
           <div className="mt-3">
             <h1 className='text-white font-bold text-lg'>
               <TextTruncate
@@ -55,8 +55,8 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
               </div>
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </>
   )
 }

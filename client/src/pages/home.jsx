@@ -41,7 +41,7 @@ const Home = () => {
           No posts found
         </div> : <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mx-0 mx-5 grid-cols-1 gap-4">
           {posts.map((data, index) => {
-            const { post_id, content, full_name, created_at, title, category, cover_image, profile_image  } = data;
+            const { post_id, content, full_name, created_at, title, category, cover_image, profile_image, user_id  } = data;
 
             return (
               <PostCard
@@ -54,6 +54,7 @@ const Home = () => {
                 postTime={moment(created_at).fromNow()}
                 path={`/post/${post_id}`}
                 coverPhoto={`../upload/${cover_image}`}
+                userId={user_id}
               />
             )
           })}
