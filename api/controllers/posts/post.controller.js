@@ -2,7 +2,7 @@ const db = require("../../config/db");
 const jwt = require('jsonwebtoken');
 
 const getPosts = (req, res) => {
-  const query = req.query.topic ? "SELECT `full_name`, `email`, `title`, `post_id`, `content`, `cover_image`, `profile_image`, `category`, posts.created_at FROM posts JOIN users ON users.user_id = posts.user_id WHERE category=?" : "SELECT `full_name`, `email`, `title`, `post_id`, `content`, `cover_image`, `profile_image`, `category`, posts.created_at FROM posts JOIN users ON users.user_id = posts.user_id";
+  const query = req.query.topic ? "SELECT `full_name`, `email`, `title`, `post_id`, `content`, `cover_image`, `profile_image`, `category`, posts.created_at FROM posts JOIN users ON users.user_id = posts.user_id WHERE category=?" : "SELECT `full_name`, `email`, users.user_id, `title`, `post_id`, `content`, `cover_image`, `profile_image`, `category`, posts.created_at FROM posts JOIN users ON users.user_id = posts.user_id";
   const topic = req.query.topic;
 
   db.query(query, [topic], (err, data) => {
@@ -22,7 +22,7 @@ const getPosts = (req, res) => {
 
 const getSinglePost = (req, res) => {
   const postId = req.params.id;
-  db.query("SELECT `full_name`, `post_id`, `email`, `title`, `content`, `cover_image`, `post_id`, `profile_image`, `category`, posts.created_at FROM users JOIN posts ON users.user_id = posts.user_id WHERE posts.post_id = ?", [postId], (err, data) => {
+  db.query("SELECT `full_name`, `post_id`, users.user_id, `email`, `title`, `content`, `cover_image`, `post_id`, `profile_image`, `category`, posts.created_at FROM users JOIN posts ON users.user_id = posts.user_id WHERE posts.post_id = ?", [postId], (err, data) => {
     if (err) {
       console.log(err)
       return res.status(500).json({
