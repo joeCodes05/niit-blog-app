@@ -36,6 +36,14 @@ db.connect((error) => {
       FOREIGN KEY(user_id) REFERENCES users(user_id)
     ) CHARSET utf8mb4 COLLATE = utf8mb4_unicode_ci, ENGINE = InnoDB`);
 
+    // create comment table
+    db.query(`CREATE TABLE IF NOT EXISTS comments (
+      comment_id INT(255) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+      content LONGTEXT NOT NULL,
+      comment_image VARCHAR(255) NULL,
+      post_id 
+    )`)
+
     console.log(`Connected to MYSQL database`);
   }
 });
