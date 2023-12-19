@@ -44,7 +44,7 @@ const addPost = (req, res) => {
 
   if(!token) {
     return res.status(401).json({
-      error: false,
+      error: true,
       message: "Not authenticated!"
     })
   }
