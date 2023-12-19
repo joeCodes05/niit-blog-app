@@ -39,12 +39,14 @@ db.connect((error) => {
     // create comment table
     db.query(`CREATE TABLE IF NOT EXISTS comments (
       comment_id INT(255) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-      content LONGTEXT NOT NULL,
+      comment_content LONGTEXT NOT NULL,
       comment_image VARCHAR(255) NULL,
       post_id INT(255) UNSIGNED NOT NULL,
+      user_id INT(255) UNSIGNED NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      FOREIGN KEY(post_id) REFERENCES posts(post_id)
+      FOREIGN KEY(post_id) REFERENCES posts(post_id),
+      FOREIGN KEY(user_id) REFERENCES users(user_id)
     ) CHARSET utf8mb4 COLLATE = utf8mb4_unicode_ci, ENGINE = InnoDB`);
 
     console.log(`Connected to MYSQL database`);
