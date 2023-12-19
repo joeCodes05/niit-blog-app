@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import axios from 'axios'
 
-const CommentForm = () => {
+const CommentForm = ({ post_id }) => {
   const { currentUser } = useContext(AuthContext);
   const [ commentContent, setCommentContent ] = useState('');
 
@@ -22,7 +22,7 @@ const CommentForm = () => {
       const response = await axios.post('/comments/', {
         commentContent,
         comment_image: null,
-        post_id: 16
+        post_id
       }, { withCredentials: true });
       console.log(response.data);
     } catch (err) {
@@ -42,7 +42,7 @@ const CommentForm = () => {
             </div>
           </Link>
           <div className='w-full'>
-            <textarea value={commentContent} required onChange={(e) => setCommentContent(e.target.value)} name="commentScommentS" id="commentScommentSFiled" cols="30" rows="0" className='p-2 bg-secondary ring-1 ring-gray-700 rounded-md text-base bg-transparent w-full resize-none outline-none' placeholder='Post your commentScommentS'></textarea>
+            <textarea value={commentContent} required onChange={(e) => setCommentContent(e.target.value)} name="commentScommentS" id="commentScommentSFiled" cols="30" rows="0" className='p-2 bg-secondary ring-1 ring-gray-700 rounded-md text-base bg-transparent w-full resize-none outline-none' placeholder='Post your comment'></textarea>
 
             <div className="mt-2">
               <PrimaryButton
