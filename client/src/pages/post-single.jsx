@@ -8,7 +8,7 @@ import { useContext } from 'react'
 import { IoIosShareAlt } from "react-icons/io";
 import { AuthContext } from '../context/authContext'
 import moment from 'moment'
-import Comment from '../components/comment'
+import Comments from '../components/comments'
 
 const PostSingle = () => {
   const navigator = useNavigate();
@@ -139,7 +139,7 @@ const PostSingle = () => {
             </div>
           </div>
 
-          <Comment />
+          <Comments />
         </div>
       </section>
     </>
