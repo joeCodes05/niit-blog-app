@@ -67,7 +67,7 @@ const PostSingle = () => {
         </div>
 
         <div className="mt-10">
-          <h1 className='text-white text-4xl font-bold'>
+          <h1 className='text-white md:text-4xl text-3xl font-bold'>
             {post?.title}
           </h1>
 
@@ -118,7 +118,7 @@ const PostSingle = () => {
             </div>
           </div>
 
-          <div className="mt-10 h-full relative overflow-hidden rounded-xl w-full max-h-[378px]">
+          <div className="mt-10 h-full relative overflow-hidden rounded-xl w-full md:max-h-[378px] max-h-[300px]">
             {post?.cover_image === null ? null : <img src={`../upload/${post?.cover_image}`} width={'100%'} className='rounded-xl' alt={post?.title} />}
           </div>
 
@@ -139,7 +139,7 @@ const PostSingle = () => {
             </div>
           </div>
 
-          <Comments />
+          <Comments post_id={postId} />
         </div>
       </section>
     </>
