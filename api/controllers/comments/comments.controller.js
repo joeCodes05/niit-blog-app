@@ -2,10 +2,12 @@ const db = require('../../config/db');
 const jwt = require('jsonwebtoken');
 
 const getComments = (req, res) => {
-  db.query("SELECT * from comments JOIN posts ON posts.post_id = comments.post_id", [], (err, data) => {
+  const postId = req.params.id;
+  db.query("SELECT posts.post_id, posts.user_id, `comment_content`, comments.email, `profile_image`, `full_name`, `comment_id`, comments.created_at, comments.updated_at FROM comments JOIN posts ON posts.post_id = comments.post_id WHERE comments.post_id = ?", [postId], (err, data) => {
     if (err) return res.status(500).json({
       error: true,
-      message: "Something went wrong, please try again!"
+      message: "Something went wrong, please try again!",
+      errorMessage: err
     });
 
     return res.status(200).json({
@@ -17,7 +19,7 @@ const getComments = (req, res) => {
 
 const addComment = (req, res) => {
   const token = req.cookies.user_token;
-  const { commentContent, comment_image, post_id } = req.body;
+  const { commentContent, profile_image, full_name, post_id, email } = req.body;
 
   if (!token) return res.status(401).json({
     error: true,
@@ -31,7 +33,7 @@ const addComment = (req, res) => {
       errorMessage: err
     });
 
-    db.query("INSERT INTO comments (comment_content, comment_image, post_id, user_id) VALUES (?, ?, ?, ?)", [commentContent, comment_image, post_id, info.id], (err, data) => {
+    db.query("INSERT INTO comments (comment_content, profile_image, full_name, post_id, email, user_id) VALUES (?, ?, ?, ?, ?, ?)", [commentContent, profile_image, full_name, post_id, email, info.id], (err, data) => {
       if (err) return res.status(500).json({
         error: true,
         message: "Something went wrong, please try again!",

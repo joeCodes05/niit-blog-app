@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/images/28aOt4-LogoMakr.png'
 import TextTruncate from 'react-text-truncate';
 import { IoHeartOutline } from "react-icons/io5";
 import { BsChatDots } from 'react-icons/bs'
 import { IoIosShareAlt } from "react-icons/io";
+import axios from 'axios';
 
 const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, postTime, path, userId, postId }) => {
   const fullName = userName;
   const tempArray = userName === undefined ? null : fullName.split(" ")
   const lastName = tempArray === null ? null : tempArray?.pop();
   const firstName = tempArray === null ? null : tempArray?.join(" ");
+
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const fethComments = async () => {
+      try {
+        const response = await axios.get(`/comments/${postId}`);
+        const reversedComment = [...response.data.commentData];
+        reversedComment.reverse();
+        setComments(reversedComment);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    fethComments();
+  }, [postId]);
 
   return (
     <>
@@ -66,8 +84,11 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
               <IoHeartOutline />
             </button>
 
-            <Link to={`/post/${postId}`} className='outline-none no-underline'>
+            <Link to={`/post/${postId}`} className='outline-none no-underline flex gap-1 items-center'>
               <BsChatDots />
+              <div className='text-[.8rem] text-gray-400'>
+                {comments.length > 0 ? comments.length : null}
+              </div>
             </Link>
 
             <button className='outline-none no-underline'>

@@ -40,8 +40,10 @@ db.connect((error) => {
     db.query(`CREATE TABLE IF NOT EXISTS comments (
       comment_id INT(255) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
       comment_content LONGTEXT NOT NULL,
-      comment_image VARCHAR(255) NULL,
+      profile_image VARCHAR(255) NULL,
       post_id INT(255) UNSIGNED NOT NULL,
+      full_name VARCHAR(100) NOT NULL,
+      email VARCHAR(100) NOT NULL,
       user_id INT(255) UNSIGNED NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

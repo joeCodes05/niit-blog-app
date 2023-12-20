@@ -19,12 +19,17 @@ const CommentForm = ({ post_id }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/comments/', {
+      await axios.post('/comments/', {
         commentContent,
-        comment_image: null,
-        post_id
+        full_name: currentUser.userData.full_name,
+        profile_image: currentUser.userData.profile_image,
+        post_id,
+        email: currentUser.userData.email
       }, { withCredentials: true });
-      console.log(response.data);
+      await axios.get(`/comments/${post_id}`, {withCredentials: true});
+
+      setCommentContent('');
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +51,7 @@ const CommentForm = ({ post_id }) => {
 
             <div className="mt-2">
               <PrimaryButton
-                text={'commentS'}
+                text={'comment'}
               />
             </div>
           </div>
