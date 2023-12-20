@@ -89,7 +89,7 @@ const deletePost = (req, res) => {
     if (err) {
       return res.status(403).json({
         error: true,
-        message: "Tokis is not valid!",
+        message: "Token is not valid!",
         err
       })
     }
@@ -99,7 +99,7 @@ const deletePost = (req, res) => {
     db.query("DELETE FROM posts WHERE `post_id` = ? AND `user_id` = ?", [postId, info.id], (err, data) => {
       if (err) return res.status(403).json("You can delete only your post!");
 
-      return res.json("Post has been deleted!");
+      return res.status(200).json("Post has been deleted!");
     })
   })
 }

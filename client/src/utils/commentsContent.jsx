@@ -1,10 +1,12 @@
 import moment from 'moment';
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { BsThreeDotsVertical } from 'react-icons/bs'
+import { BsTrash } from 'react-icons/bs'
 import { AuthContext } from '../context/authContext';
+import axios from 'axios';
+import Swal from 'sweetalert2'
 
-const CommentContent = ({ path, profileImage, fullName, content, commentTime, email }) => {
+const CommentContent = ({ path, profileImage, fullName, content, commentTime, email, commentId }) => {
   const full_name = fullName;
   const tempArray =
     fullName === undefined ? null : full_name?.split(" ");
@@ -14,9 +16,40 @@ const CommentContent = ({ path, profileImage, fullName, content, commentTime, em
 
   const { currentUser } = useContext(AuthContext)
 
+  const deletePrompt = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+
+        const deleteComment = async () => {
+          try {
+            await axios.delete(`/comments/${commentId}`, { withCredentials: true });
+            window.location.reload();
+          } catch (err) {
+            console.log(err);
+          }
+        }
+
+        deleteComment();
+      }
+    });
+  }
+
   return (
-    <>
-      <div className='w-[350px] bg-secondary p-3 overflow-hidden rounded-md shadow ml-[65px]'>
+    <div className='ml-[65px]'>
+      <div className='w-[350px] bg-secondary p-3 overflow-hidden rounded-[16px] shadow'>
         <div className="flex">
           <div className='flex gap-2 items-center'>
             <div className='lg:h-[30px] lg:w-[30px] w-[40px] h-[40px] overflow-hidden rounded-full'>
@@ -33,8 +66,8 @@ const CommentContent = ({ path, profileImage, fullName, content, commentTime, em
           </div>
 
           <div className='ml-auto'>
-            {currentUser.userData.email === email ? <button className='bg-transparent border-0 outline-none p-0 text-sm text-gray-400'>
-              <BsThreeDotsVertical />
+            {currentUser.userData.email === email ? <button onClick={deletePrompt} className='bg-transparent border-0 outline-none p-0 text-sm text-gray-400'>
+              <BsTrash />
             </button> : null}
           </div>
         </div>
@@ -43,7 +76,12 @@ const CommentContent = ({ path, profileImage, fullName, content, commentTime, em
           {content}
         </div>
       </div>
-    </>
+      <div className="flex gap-2">
+        <button className='text-white outline-none no-underline hover:underline text-[.8rem] ml-5 font-light'>Reply</button>
+
+        <button className='text-white outline-none no-underline hover:underline text-[.8rem] font-light'>View all replies</button>
+      </div>
+    </div>
   )
 }
 

@@ -30,6 +30,20 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
     fethComments();
   }, [postId]);
 
+  function formatCompactNumber(number) {
+    if (number < 1000) {
+      return number;
+    } else if (number >= 1000 && number < 1_000_000) {
+      return (number / 1000).toFixed(1) + "K";
+    } else if (number >= 1_000_000 && number < 1_000_000_000) {
+      return (number / 1_000_000).toFixed(1) + "M";
+    } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
+      return (number / 1_000_000_000).toFixed(1) + "B";
+    } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
+      return (number / 1_000_000_000_000).toFixed(1) + "T";
+    }
+  }
+
   return (
     <>
       <div className='py-5 pb-3 px-3 rounded-2xl ring-1 ring-gray-700 bg-secondary text-white'>
@@ -87,7 +101,7 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
             <Link to={`/post/${postId}`} className='outline-none no-underline flex gap-1 items-center'>
               <BsChatDots />
               <div className='text-[.8rem] text-gray-400'>
-                {comments.length > 0 ? comments.length : null}
+                {formatCompactNumber(comments.length > 0 ? comments.length : null)}
               </div>
             </Link>
 

@@ -28,16 +28,17 @@ const Comments = ({ post_id }) => {
       <div className='mt-2 max-w-xl mx-auto'>
         {!currentUser ? null : <CommentForm post_id={post_id} />}
         <div className="mt-5 space-y-4">
-          {comments.map((comments) => {
+          {comments.length === 0 ? <h1 className='my-10 text-center text-xl font-normal text-gray-400'>Be the first to comment</h1> : comments.map((comments) => {
             const { comment_content, full_name, profile_image, user_id, created_at, comment_id, email } = comments;
 
             return (
-              <CommentContent 
+              <CommentContent
                 key={comment_id}
                 fullName={full_name}
                 profileImage={profile_image}
                 path={`/profile/${user_id}`}
                 content={comment_content}
+                commentId={comment_id}
                 commentTime={created_at}
                 email={email}
               />
