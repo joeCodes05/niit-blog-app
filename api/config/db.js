@@ -48,8 +48,21 @@ db.connect((error) => {
       user_id INT(255) UNSIGNED NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      FOREIGN KEY(post_id) REFERENCES posts(post_id),
-      FOREIGN KEY(user_id) REFERENCES users(user_id)
+      FOREIGN KEY(post_id) REFERENCES posts(post_id)
+    ) CHARSET utf8mb4 COLLATE = utf8mb4_unicode_ci, ENGINE = InnoDB`);
+
+    // create replies table
+    db.query(`CREATE TABLE IF NOT EXISTS replies (
+      reply_id INT(255) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+      content LONGTEXT NOT NULL,
+      profile_image VARCHAR(255) NULL,
+      comment_id INT(255) UNSIGNED NOT NULL,
+      full_name VARCHAR(100) NOT NULL,
+      email VARCHAR(100) NOT NULL,
+      user_id INT(255) UNSIGNED NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      FOREIGN KEY(comment_id) REFERENCES comments(comment_id)
     ) CHARSET utf8mb4 COLLATE = utf8mb4_unicode_ci, ENGINE = InnoDB`);
 
     console.log(`Connected to MYSQL database`);

@@ -7,6 +7,7 @@ const multer = require('multer');
 const authRoutes = require('./routes/auth/auth.routes');
 const postRoutes = require('./routes/posts/posts.routes');
 const commentRoutes = require('./routes/comments/comments.routes');
+const replyRoutes = require('./routes/replies/replies.routes');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.post('/api/upload', upload.single('file'), function (req, res) {
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/replies', replyRoutes);
 
 const PORT = process.env.PORT || 5000;
 

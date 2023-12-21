@@ -26,8 +26,7 @@ const CommentForm = ({ post_id }) => {
         post_id,
         email: currentUser.userData.email
       }, { withCredentials: true });
-      await axios.get(`/comments/${post_id}`, {withCredentials: true});
-
+      
       setCommentContent('');
       window.location.reload();
     } catch (err) {

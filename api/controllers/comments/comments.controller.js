@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const getComments = (req, res) => {
   const postId = req.params.id;
-  db.query("SELECT posts.post_id, posts.user_id, `comment_content`, comments.email, `profile_image`, `full_name`, `comment_id`, comments.created_at, comments.updated_at FROM comments JOIN posts ON posts.post_id = comments.post_id WHERE comments.post_id = ?", [postId], (err, data) => {
+  db.query("SELECT posts.post_id, comments.user_id, `comment_content`, comments.email, `profile_image`, `full_name`, `comment_id`, comments.created_at, comments.updated_at FROM comments JOIN posts ON posts.post_id = comments.post_id WHERE comments.post_id = ?", [postId], (err, data) => {
     if (err) return res.status(500).json({
       error: true,
       message: "Something went wrong, please try again!",
@@ -13,7 +13,7 @@ const getComments = (req, res) => {
     return res.status(200).json({
       error: false,
       commentData: data
-    })
+    });
   });
 }
 
@@ -66,7 +66,11 @@ const deleteComment = (req, res) => {
     const commentId = req.params.id;
 
     db.query("DELETE FROM comments WHERE `comment_id` = ? AND `user_id` = ?", [commentId, info.id], (err, data) => {
-      if (err) return res.status(403).json("You can delete only your comment!");
+      if (err) return res.status(403).json({
+        error: true,
+        message: "You can delete only your comment!",
+        errorMessage: err
+      });
 
       return res.status(200).json("Your comment has been deleted");
     })
