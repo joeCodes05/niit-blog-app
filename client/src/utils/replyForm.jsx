@@ -36,7 +36,7 @@ const ReplyForm = ({ fullName, path, commentId, showForm, setShowForm }) => {
             <div className='text-[.8rem] text-gray-400 font-light mb-1'>
               Replying to <Link to={path} className='text-white underline'>{fullName}</Link>
             </div>
-            <textarea value={replyContent} required onChange={(e) => setReplyContent(e.target.value)} name="commentScommentS" id="commentScommentSFiled" cols="30" rows="0" className='p-2 w-[300px] bg-secondary ring-1 ring-gray-700 rounded-md text-sm bg-transparent resize-none outline-none font-light' placeholder='Post your reply'></textarea>
+            <textarea value={replyContent} required onChange={(e) => setReplyContent(e.target.value)} name="commentScommentS" id="commentScommentSFiled" cols="30" rows="0" className='p-2 md:w-[300px] w-full bg-secondary ring-1 ring-gray-700 rounded-md text-sm bg-transparent resize-none outline-none font-light' placeholder='Post your reply'></textarea>
 
             <div className="mt-2">
               <PrimaryButton

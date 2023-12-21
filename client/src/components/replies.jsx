@@ -49,7 +49,7 @@ const Replies = ({ profile_image, full_name, path, replyTime, email, content, re
   return (
     <>
       <div className="mt-5 space-y-3 ml-[30px]">
-        <div className='w-[300px] bg-secondary p-2 overflow-hidden rounded-[16px] shadow'>
+        <div className='md:w-[300px] w-auto bg-secondary p-2 overflow-hidden rounded-[16px] shadow'>
           <div className="flex">
             <div className='flex gap-2 items-center'>
               <div className='lg:h-[30px] lg:w-[30px] w-[40px] h-[40px] overflow-hidden rounded-full'>

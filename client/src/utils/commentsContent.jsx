@@ -91,7 +91,7 @@ const CommentContent = ({ path, profileImage, fullName, content, commentTime, em
 
   return (
     <div className='ml-[65px]'>
-      <div className='w-[350px] bg-secondary p-2 overflow-hidden rounded-[16px] shadow'>
+      <div className='md:w-[350px] w-auto bg-secondary p-2 overflow-hidden rounded-[16px] shadow'>
         <div className="flex">
           <div className='flex gap-2 items-center'>
             <div className='lg:h-[30px] lg:w-[30px] w-[40px] h-[40px] overflow-hidden rounded-full'>
