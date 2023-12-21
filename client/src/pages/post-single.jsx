@@ -123,18 +123,15 @@ const PostSingle = () => {
           </div>
 
           <div className="my-5">
-            <div className="w-full px-4 py-2 border-y border-y-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
-              <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
+            <div className="w-full px-4 py-5 border-y border-y-gray-700 flex items-center md:gap-44 gap-20 text-gray-400 text-xl justify-center">
+              <button className='bg-transparent duration-500 hover:text-red-500 outline-none border-0 p-0 flex flex-col items-center'>
                 <IoHeartOutline />
-                <div className='w-fit text-gray-400 text-[.7rem]'>Likes</div>
               </button>
               <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
                 <BsChatDots />
-                <div className='w-fit text-gray-400 text-[.7rem]'>Comments</div>
               </button>
               <button className='bg-transparent outline-none border-0 p-0 flex flex-col items-center'>
                 <IoIosShareAlt />
-                <div className='w-fit text-gray-400 text-[.7rem]'>Share</div>
               </button>
             </div>
           </div>
