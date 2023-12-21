@@ -94,7 +94,7 @@ const PostCard = ({ title, detail, profileImage, userName, coverPhoto, topic, po
 
         <div className="mt-2">
           <div className="flex items-center gap-20 justify-center">
-            <button className='outline-none no-underline'>
+            <button className='outline-none no-underline duration-500 hover:text-red-500'>
               <IoHeartOutline />
             </button>
 
